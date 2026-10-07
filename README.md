@@ -9,10 +9,10 @@ It handles the distinction between a desktop app, a separately installed CLI, an
 In Codex, ask:
 
 ```text
-Use $skill-installer to install https://github.com/alik-git/update-remote-codex/tree/main/skills/update-remote-codex.
+Use $skill-installer to install alik-git/update-remote-codex from path . with the name update-remote-codex.
 ```
 
-For another agent supporting the Agent Skills format, copy `skills/update-remote-codex` into that agent's supported skill directory. See its documentation for the correct location.
+For another agent supporting the Agent Skills format, clone this repository into a folder named `update-remote-codex` inside that agent's supported skill directory. See its documentation for the correct location.
 
 ## Use
 
@@ -28,7 +28,7 @@ The skill keeps discovery short, preserves channels and version pins, limits res
 
 The workflow adapts to the target OS and installed command versions. Desktop updates apply only where a desktop app exists; a headless host can have only a CLI or server.
 
-This is an independent community skill. Review [SKILL.md](skills/update-remote-codex/SKILL.md) before using it. Commands and updater behavior can change across Codex versions.
+This is an independent community skill. Review [SKILL.md](SKILL.md) before using it. Commands and updater behavior can change across Codex versions.
 
 ## Official references
 
