@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Remote Codex"
+  short_description: "Update remote Codex and verify reconnection"
+  default_prompt: "Use $update-remote-codex to update Codex on my selected remote host and verify it reconnects."
