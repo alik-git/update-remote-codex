@@ -15,6 +15,10 @@ Preserve active work. An authorized update can include necessary restarts, but d
 
 Use an independent management connection when restarting Codex could sever the current one. Keep SSH host-key verification enabled. An unknown or changed host key needs trusted verification before proceeding; do not silently accept it. Do not copy credentials, inspect authentication files, dump environments, or print full process arguments.
 
+## Model availability across hosts
+
+A model picker for a remote chat can reflect the connected host’s backend, even when the controlling desktop app is current. Confirm the chat’s host before diagnosing its installation. Compare the controller’s app and bundled CLI with the selected host’s live app-server version and model catalog. A current catalog on the controller does not establish availability on the host.
+
 ## Inspect once
 
 Batch read-only checks and record only what helps choose the update path:
@@ -36,7 +40,13 @@ Preserve the installation's channel and deliberate pins. Do not downgrade a newe
 
 **Server:** replacing a CLI binary does not update an already-running process. Use its existing manager to update or restart only the relevant server when needed. Confirm the managed update's source and channel first. Do not use `--from-cli` merely to synchronize versions: it can replace and pin the managed package.
 
-For a server you manage directly, retain its launch configuration and restart method. Do not create new public listeners or alter authentication, network policy, pairing, or remote-control permissions.
+For a server you manage directly, retain its launch configuration and restart method. A running process under the managed package path is not necessarily a daemon-managed process: if the updater reports that it is not managed, identify how that live server was started before proceeding. Preserve existing remote-control settings and feature overrides.
+
+When the approved source is a current official desktop bundle, transfer the complete Codex package, including its helpers, manifest, and resources; compare it with the source and verify its code signature on the destination. Run signature verification with normal macOS trust-service access before concluding that a sandbox-only failure means corruption. Use the verified package's executable for `app-server daemon update --from-cli` only when deliberately replacing an obsolete pin. Keep the previous release available for rollback.
+
+A successful update can return an installed version with no running version, especially when the old process exited before the update. Check live status and start the selected package through its existing manager if needed. If the host was already paired through Codex Remote Control, check that the original connection returns. When supported, `codex remote-control start --json` can restore the existing connection and report its status and environment ID. Confirm the same host reconnects without re-pairing.
+
+Do not create new public listeners or alter authentication, network policy, pairing, or remote-control permissions.
 
 ## Bound recovery
 
@@ -46,6 +56,6 @@ After one remote GUI or permission failure, use available status checks. A locke
 
 ## Verify once and report
 
-Open a fresh management connection. Recheck installed versions and the live server's response. Exercise the normal remote client path when accessible; a PID, cache, or installed binary alone does not prove client reconnection or model availability.
+Open a fresh management connection. Recheck installed versions and the live server's response. Exercise the normal remote client path when accessible, for example by listing chats on the same host. Check the remote model picker or query the running server’s `model/list` through its supported app-server transport. Report which path you verified. A PID, cache, or installed binary alone does not prove client reconnection or model availability.
 
 State which components changed, which were intentionally preserved, and whether normal reconnection was verified. Distinguish partial updates and remaining interaction from completion. Use local help and official documentation for unresolved behavior instead of repeated speculative probes.
